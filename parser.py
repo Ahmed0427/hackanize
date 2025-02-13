@@ -34,6 +34,7 @@ class Parser:
     instruction = []
     def __init__(self, tokens):
         self.tokens = tokens
+        self.error = False
         self.current = 0
 
     def isEnd(self):
@@ -72,15 +73,15 @@ class Parser:
         instructions = []
         while not self.isEnd():
             inst = None
-            if self.peek()[0] == '@': inst = self.parseAInstraction()
-            elif self.peek()[0] == '(': inst = self.parseLInstraction()
-            else: inst = self.parseCInstraction()
+            if self.peek()[0] == '@': inst = self.parseAInstruction()
+            elif self.peek()[0] == '(': inst = self.parseLInstruction()
+            else: inst = self.parseCInstruction()
             if inst: instructions.append(inst)
                 
         return instructions
 
     
-    def parseAInstraction(self):
+    def parseAInstruction(self):
         self.advance();
         value, line = self.peek()
         if not value[0].isalpha() and not value.isdigit():
@@ -90,7 +91,7 @@ class Parser:
         self.advance()
         return AInstruction(value) 
 
-    def parseLInstraction(self):
+    def parseLInstruction(self):
         self.advance();
         value, line = self.peek()
         if not value[0].isalpha() and not value.isdigit():
@@ -191,7 +192,7 @@ class Parser:
         self.reportError(msg)
         return None
 
-    def parseCInstraction(self):
+    def parseCInstruction(self):
         dest, comp, jump = None, None, None
         if self.peekNext()[0] == '=':
             dest = self.advance()[0]

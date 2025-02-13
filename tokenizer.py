@@ -62,21 +62,19 @@ class Tokenizer:
         elif c == ';': return self.makeToken(c) 
         elif c == '$': return self.makeToken(c) 
         elif c == '.': return self.makeToken(c) 
-        elif c == 'M': return self.makeToken(c)
-        elif c == 'D':
+        elif (c == 'D' or c == 'M' or c == 'A'):
             reg = c
+            if self.peek() == 'A':
+                reg += self.advance()
             if self.peek() == 'M':
                 reg += self.advance()
-
-            return self.makeToken(reg)
-
-        elif c == 'A':
-            reg = c
             if self.peek() == 'D':
-                reg += self.advance();
-                if self.peek() == 'M':
-                    reg += self.advance();
-            elif self.peek() == 'M':
+                reg += self.advance()
+            if self.peek() == 'A':
+                reg += self.advance()
+            if self.peek() == 'M':
+                reg += self.advance()
+            if self.peek() == 'D':
                 reg += self.advance()
 
             return self.makeToken(reg)
