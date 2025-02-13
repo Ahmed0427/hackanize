@@ -13,8 +13,13 @@ def main():
 
     tokenizer = Tokenizer(source)
     tokens = tokenizer.getTokens()
-    print(tokens)
     if tokenizer.error: sys.exit(1)
+    parser = Parser(tokens)
+    
+    instructions = parser.parse()
+    print(len(instructions))
+    for inst in instructions:
+        print(inst.toString())
     
 if __name__ == '__main__':
     main()
