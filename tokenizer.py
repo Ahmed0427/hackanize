@@ -37,38 +37,38 @@ class Tokenizer:
     def makeError(self, c):
         self.error = True
         print(f"Error: unknown symbol '{c}' at Line {self.line}")
-        return self.token("ERROR")
+        return self.makeToken("ERROR")
 
 
-    def token(self, lexeme):
+    def makeToken(self, lexeme):
         return (lexeme, self.line)
 
     def getNextToken(self):
         self.skipWhiteSpaces()
 
-        if self.isEnd(): return self.token("EOF")
+        if self.isEnd(): return self.makeToken("EOF")
 
         c = self.advance();
 
-        if c == '@': return self.token(c)
-        elif c == '(': return self.token(c)
-        elif c == ')': return self.token(c)
-        elif c == '-': return self.token(c)
-        elif c == '+': return self.token(c)
-        elif c == '&': return self.token(c) 
-        elif c == '|': return self.token(c) 
-        elif c == '!': return self.token(c) 
-        elif c == '=': return self.token(c) 
-        elif c == ';': return self.token(c) 
-        elif c == '$': return self.token(c) 
-        elif c == '.': return self.token(c) 
-        elif c == 'M': return self.token(c)
+        if c == '@': return self.makeToken(c)
+        elif c == '(': return self.makeToken(c)
+        elif c == ')': return self.makeToken(c)
+        elif c == '-': return self.makeToken(c)
+        elif c == '+': return self.makeToken(c)
+        elif c == '&': return self.makeToken(c) 
+        elif c == '|': return self.makeToken(c) 
+        elif c == '!': return self.makeToken(c) 
+        elif c == '=': return self.makeToken(c) 
+        elif c == ';': return self.makeToken(c) 
+        elif c == '$': return self.makeToken(c) 
+        elif c == '.': return self.makeToken(c) 
+        elif c == 'M': return self.makeToken(c)
         elif c == 'D':
             reg = c
             if self.peek() == 'M':
                 reg += self.advance()
 
-            return self.token(reg)
+            return self.makeToken(reg)
 
         elif c == 'A':
             reg = c
@@ -79,7 +79,7 @@ class Tokenizer:
             elif self.peek() == 'M':
                 reg += self.advance()
 
-            return self.token(reg)
+            return self.makeToken(reg)
 
         elif c == 'J':
             jump = c
@@ -113,21 +113,24 @@ class Tokenizer:
                     jump += self.advance()
 
             if len(jump) != 3: return self.makeError(jump)
-            return self.token(jump)
+            return self.makeToken(jump)
             
         elif c.isdigit():
             number = c
             while not self.isEnd() and self.peek().isdigit():
                 number += self.advance()
 
-            return self.token(number)
+            return self.makeToken(number)
 
         elif c.isalpha():
             ident = c
-            while not self.isEnd() and (self.peek().isalnum() or self.peek() == '_'):
+            while not self.isEnd() and (self.peek().isalnum() or
+                                        self.peek() == '_' or
+                                        self.peek() == '$' or
+                                        self.peek() == '.'):
                 ident += self.advance()
 
-            return self.token(ident)
+            return self.makeToken(ident)
 
         else:
             return self.makeError(c)
