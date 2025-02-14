@@ -55,6 +55,9 @@ def main():
     generator = Generator(instructions)
     binary_instructions = generator.generate()
 
+    with open(sys.argv[2], 'a') as f:
+        for element in binary_instructions:
+            f.write(element + '\n') 
     
 if __name__ == '__main__':
     main()
