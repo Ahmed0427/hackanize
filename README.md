@@ -49,10 +49,11 @@ git clone https://github.com/Ahmed0427/hack-assembler.git
 cd hack-assembler
 ```
 
- Running the assembler
+Running the assembler:
 
 ```bash
-pythou3 assembler.py <in_file> <out_file>
+python3 assembler.py <in_file> <out_file>
 ```
 <in_file>  is the path to the hack assembly file
+
 <out_file> is the path to the generated binary file
