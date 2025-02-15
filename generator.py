@@ -1,3 +1,5 @@
+import sys
+
 class Generator:
     def __init__(self, instructions):
         self.instructions = instructions
@@ -74,10 +76,23 @@ class Generator:
             if inst.getType() == 'A':
                 binList.append(bin(int(inst.value))[2:].zfill(16))
             elif inst.getType() == 'C':
+                print(inst.toString())
                 res = '111' 
-                res += self.comp[inst.comp]
-                res += self.dest[inst.dest]
-                res += self.jump[inst.jump]
+                if inst.comp not in self.comp:
+                    print(f"'{inst.comp}' is not a valid computation")
+                    sys.exit(1)
+                else: res += self.comp[inst.comp]
+
+                if inst.dest not in self.dest:
+                    print(f"'{inst.dest}' is not a valid destination")
+                    sys.exit(1)
+                else: res += self.dest[inst.dest]
+
+                if inst.jump not in self.jump:
+                    print(f"'{inst.jump}' is not a valid jump condition")
+                    sys.exit(1)
+                else: res += self.dest[inst.dest]
+
                 binList.append(res)
 
         return binList
