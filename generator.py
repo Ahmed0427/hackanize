@@ -76,7 +76,7 @@ class Generator:
             if inst.getType() == 'A':
                 binList.append(bin(int(inst.value))[2:].zfill(16))
             elif inst.getType() == 'C':
-                print(inst.toString())
+                # print(inst.toString())
                 res = '111' 
                 if inst.comp not in self.comp:
                     print(f"'{inst.comp}' is not a valid computation")

@@ -1,12 +1,8 @@
-
-
 # Hack Assembler
 
 A Python program that converts Hack assembly code into Hack binary code. The Hack computer is a simple, educational machine designed as part of the **NAND to Tetris** course, where you build a complete computer system from scratch. This program helps by translating human-readable Hack assembly language into the machine code that the Hack computer can execute.
 
 To learn more about how the Hack computer is designed and how the assembler works, you can explore the **NAND to Tetris** course: [NAND to Tetris](https://www.nand2tetris.org/).
-
-
 
 ### Example
 
@@ -43,16 +39,10 @@ M=M+1                                               1111 1101 1100 1000
 
 ```
 ### Usage
-Clone the repository:
-```bash
-git clone https://github.com/Ahmed0427/hack-assembler.git
-cd hack-assembler
-```
-
-Running the assembler:
+after cloning the repository run:
 
 ```bash
-python3 assembler.py <in_file> <out_file>
+python3 hackanize.py <in_file> <out_file>
 ```
 <in_file>  is the path to the hack assembly file
 
